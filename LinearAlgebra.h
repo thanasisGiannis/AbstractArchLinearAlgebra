@@ -9,7 +9,16 @@ namespace mpjd {
     class LinearAlgebra 
     {
         public:
-            template<class fp> 
+            enum target_arch {
+                CPU,
+                GPU
+            };
+            
+            LinearAlgebra(target_arch arch = mpjd::LinearAlgebra::target_arch::CPU);
+
+            ~LinearAlgebra();
+
+            template<class fp>
             class Vector 
             {
                 public:
@@ -20,27 +29,23 @@ namespace mpjd {
             };
 
             template<class fp>
-            std::unique_ptr<Vector<fp>> newVector(){
-                std::unique_ptr<Device_Vector<fp>> 
-                    p(std::unique_ptr<Device_Vector<fp>>(
-                        new Device_Vector<fp>())
-                    );
-                    
-                return std::move(p);
-            }
-
+            std::unique_ptr<Vector<fp>> newVector();
+            
+            template<class fp>
+            std::unique_ptr<Vector<fp>> newVector(const target_arch arch);
+            
         private:
             template<class fp> 
-            class Device_Vector
-            : public Vector<fp> 
-            {
-                public:
-                    int size() override { return _vector.size();} 
-                    Device_Vector() {std::cout << "Device_Vector()" << std::endl;}
-                    ~Device_Vector() {std::cout << "~Device_Vector()" << std::endl;}
-                private:
-                    std::vector<fp> _vector;
-            };
+            class Host_Vector;
+
+            template<class fp> 
+            class Device_Vector;
+
+            target_arch _arch;
 
     };
 }
+
+#include "LinearAlgebra.tcc"
+#include "LinearAlgebraHost.tcc"
+#include "LinearAlgebraDevice.tcc"

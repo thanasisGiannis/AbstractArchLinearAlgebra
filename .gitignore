@@ -1,0 +1,11 @@
+gitHubToken
+build/*
+*.cflags
+*.config
+*.creator
+*.cxxflags
+*.files
+*.includes
+*.so
+*.vscode/*
+

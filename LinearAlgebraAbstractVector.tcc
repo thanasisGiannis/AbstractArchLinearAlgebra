@@ -5,7 +5,7 @@ class mpjd::LinearAlgebra::Vector
         virtual int size() = 0;
         virtual ~Vector() {}
         
-        virtual fp operator[](int idx) = 0;
+        virtual fp& operator[](int idx) = 0;
         virtual void reserve(int numVars) = 0; 
         virtual int  capacity() = 0;
         virtual void clear() = 0;

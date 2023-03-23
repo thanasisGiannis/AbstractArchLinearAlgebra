@@ -7,7 +7,7 @@ class mpjd::LinearAlgebra::Host_Vector
         int size() override; 
         Host_Vector();
         ~Host_Vector();
-        fp operator[](int idx);
+        fp& operator[](int idx);
         void push_back(fp var);
 
         void reserve(int numVars); 
@@ -31,8 +31,8 @@ mpjd::LinearAlgebra::Host_Vector<fp>::~Host_Vector() {
 }
 
 template<class fp>
-fp  mpjd::LinearAlgebra::Host_Vector<fp>::operator[](int idx) {
-    return (_vector[idx]);
+fp&  mpjd::LinearAlgebra::Host_Vector<fp>::operator[](int idx) {
+    return _vector[idx];
 }
 
 

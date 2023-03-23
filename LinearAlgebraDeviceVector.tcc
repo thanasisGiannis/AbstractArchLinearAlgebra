@@ -1,7 +1,11 @@
+/*
+    TODO: a) change base class to be Vector instead of Host_Vector
+          b) add vector functionality that base class needs
+*/
 
 template<class fp> 
 class mpjd::LinearAlgebra::Device_Vector
-: public mpjd::LinearAlgebra::Vector<fp> 
+: public mpjd::LinearAlgebra::Host_Vector<fp> 
 {
     public:
         int size() override; 

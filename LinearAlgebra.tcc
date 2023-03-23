@@ -7,7 +7,7 @@ mpjd::LinearAlgebra::~LinearAlgebra() {
     std::cout << "LinearAlgebra Architecture = "  
                 << (_arch==target_arch::CPU?"CPU":"GPU")
                 << std::endl;
-    }
+}
 
 template<class fp>
 std::unique_ptr<mpjd::LinearAlgebra::Vector<fp>> 

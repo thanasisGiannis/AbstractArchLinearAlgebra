@@ -13,6 +13,18 @@ int main(){
     
     std::unique_ptr<mpjd::LinearAlgebra::Vector<int>> 
     myVectorCPU      = la.newVector<int>(mpjd::LinearAlgebra::target_arch::CPU);
+
+    std::cout << "Capacity = " << myVectorCPU->capacity() << std::endl;
+    std::cout << "Size = " << myVectorCPU->size() << std::endl;
+    myVectorCPU->reserve(100);
+    std::cout << "Capacity = " << myVectorCPU->capacity() << std::endl;
+    std::cout << "Size = " << myVectorCPU->size() << std::endl;
+    
+    myVectorCPU->clear();
+    std::cout << "Capacity = " << myVectorCPU->capacity() << std::endl;
+    std::cout << "Size = " << myVectorCPU->size() << std::endl;
+    
+
     
     std::unique_ptr<mpjd::LinearAlgebra::Vector<int>> 
     myVectorGPU      = la.newVector<int>(mpjd::LinearAlgebra::target_arch::GPU);

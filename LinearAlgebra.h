@@ -19,14 +19,7 @@ namespace mpjd {
             ~LinearAlgebra();
 
             template<class fp>
-            class Vector 
-            {
-                public:
-                    virtual int size() = 0;
-                    virtual ~Vector() {}
-                protected:
-                    Vector() {}
-            };
+            class Vector;
 
             template<class fp>
             std::unique_ptr<Vector<fp>> newVector();
@@ -47,5 +40,6 @@ namespace mpjd {
 }
 
 #include "LinearAlgebra.tcc"
+#include "LinearAlgebraAbstractVector.tcc"
 #include "LinearAlgebraHost.tcc"
 #include "LinearAlgebraDevice.tcc"

@@ -41,5 +41,5 @@ namespace mpjd {
 
 #include "LinearAlgebra.tcc"
 #include "LinearAlgebraAbstractVector.tcc"
-#include "LinearAlgebraHost.tcc"
-#include "LinearAlgebraDevice.tcc"
+#include "LinearAlgebraHostVector.tcc"
+#include "LinearAlgebraDeviceVector.tcc"

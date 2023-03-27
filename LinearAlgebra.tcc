@@ -10,47 +10,23 @@ mpjd::LinearAlgebra::~LinearAlgebra() {
 }
 
 template<class fp>
-std::unique_ptr<mpjd::LinearAlgebra::Vector<fp>> 
-mpjd::LinearAlgebra::newVector(){
-
-    std::unique_ptr<Vector<fp>> p;
-    switch(_arch){
-        case target_arch::CPU:
-            p = std::unique_ptr<Host_Vector<fp>>(
-                    new Host_Vector<fp>());
-            break;
-        case target_arch::GPU:
-            p = std::unique_ptr<Device_Vector<fp>>(
-                    new Device_Vector<fp>());
-            break;
-        default:
-            p = NULL;
-            std::cout << "Not a proper initialization"
-                        << std::endl;
-    }
-    return std::move(p);
-}
-
-template<class fp>
-std::unique_ptr<mpjd::LinearAlgebra::Vector<fp>> 
+mpjd::LinearAlgebra::Vector<fp>&
 mpjd::LinearAlgebra::newVector(const mpjd::LinearAlgebra::target_arch arch){
     
-    std::unique_ptr<Vector<fp>> p;
+    Vector<fp> *p;
     switch(arch){
         case target_arch::CPU:
-            p = std::unique_ptr<Host_Vector<fp>>(
-                    new Host_Vector<fp>());
+            p = new Host_Vector<fp>();
             break;
         case target_arch::GPU:
-            p = std::unique_ptr<Device_Vector<fp>>(
-                    new Device_Vector<fp>());
+            p = new Device_Vector<fp>();
             break;
         default:
             p = NULL;
             std::cout << "Not a proper initialization"
                         << std::endl;
     }
-    return std::move(p);
+    return *p;
 }
 
 std::ostream& operator<<(std::ostream& os,mpjd::LinearAlgebra::target_arch __arch){

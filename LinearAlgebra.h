@@ -22,11 +22,8 @@ namespace mpjd {
             class Vector;
 
             template<class fp>
-            std::unique_ptr<Vector<fp>> newVector();
-            
-            template<class fp>
-            std::unique_ptr<Vector<fp>> newVector(const target_arch arch);
-            
+            Vector<fp>& newVector(target_arch arch);
+
         private:
             template<class fp> 
             class Host_Vector;

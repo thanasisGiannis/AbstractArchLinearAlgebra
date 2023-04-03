@@ -12,6 +12,11 @@ class mpjd::LinearAlgebra::Vector
 
                 fp& operator*(){return (*_iterImpl);}
                 Iterator& operator++(){++_iterImpl; return *this;};
+                Iterator& operator--(){--_iterImpl; return *this;};
+
+                //Iterator operator++(int) { Iterator tmp = *this; ++(*this); return tmp; }
+                bool operator==(Iterator& otherIterImpl) { return (*this)._iterImpl==otherIterImpl._iterImpl;}
+                bool operator!=(Iterator& otherIterImpl) { return (*this)._iterImpl!=otherIterImpl._iterImpl;}
             private:
                 IteratorImplementationBase& _iterImpl;
         };
@@ -25,20 +30,18 @@ class mpjd::LinearAlgebra::Vector
         virtual void clear() = 0;
         virtual void push_back(fp var) = 0; 
         virtual mpjd::LinearAlgebra::Vector<fp>::Iterator begin() = 0; 
+        virtual mpjd::LinearAlgebra::Vector<fp>::Iterator end() = 0; 
         
-        /* TODO:
-        virtual insert(int sP, int numVars, fp val) = 0; // this will need an iterator
-        
-        virtual operator=() = 0;
-        virtual assign() = 0;
 
-        virtual void pop_back() = 0;
-        */
     protected:
         class IteratorImplementationBase {
             public:
                 virtual fp& operator*()=0;
                 virtual IteratorImplementationBase& operator++()=0;
+                virtual IteratorImplementationBase& operator--()=0;
+                //virtual IteratorImplementationBase operator++(int)=0;
+                virtual bool operator==(IteratorImplementationBase& otherIterImpl)=0;
+                virtual bool operator!=(IteratorImplementationBase& otherIterImpl)=0;
         };
         
         Vector() {}

@@ -19,11 +19,10 @@ int main(){
     myVectorCPU.push_back(2);
     std::cout << "Capacity = " << myVectorCPU.capacity() << std::endl;
     std::cout << "Size = " << myVectorCPU.size() << std::endl;
-    mpjd::LinearAlgebra::Vector<int>::Iterator &it = myVectorCPU.begin();
+    mpjd::LinearAlgebra::Vector<int>::Iterator it = myVectorCPU.begin();
 
     std::cout << "V[1] = " << (myVectorCPU)[1] << std::endl;
-    ++it;
-    std::cout << "V[0] = " << (*it) << std::endl;
+    std::cout << "*(++it) = " << *(++it) << std::endl;
     
     myVectorCPU.clear();
     std::cout << "Capacity = " << myVectorCPU.capacity() << std::endl;

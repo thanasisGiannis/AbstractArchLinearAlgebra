@@ -1,12 +1,19 @@
 template<class fp>
 class mpjd::LinearAlgebra::Vector 
 {
+    protected: 
+        class IteratorImplementationBase;
+    
     public:
-        class Iterator{
+        class Iterator {
             public:
-                Iterator(){}
-                virtual fp& operator*()=0;
-                virtual Iterator& operator++()=0;
+                Iterator(IteratorImplementationBase &iterImpl)
+                : _iterImpl(iterImpl){}
+
+                fp& operator*(){return (*_iterImpl);}
+                Iterator& operator++(){++_iterImpl; return *this;};
+            private:
+                IteratorImplementationBase& _iterImpl;
         };
         
         virtual int size() = 0;
@@ -17,7 +24,7 @@ class mpjd::LinearAlgebra::Vector
         virtual int  capacity() = 0;
         virtual void clear() = 0;
         virtual void push_back(fp var) = 0; 
-        virtual mpjd::LinearAlgebra::Vector<fp>::Iterator& begin() = 0; 
+        virtual mpjd::LinearAlgebra::Vector<fp>::Iterator begin() = 0; 
         
         /* TODO:
         virtual insert(int sP, int numVars, fp val) = 0; // this will need an iterator
@@ -28,5 +35,11 @@ class mpjd::LinearAlgebra::Vector
         virtual void pop_back() = 0;
         */
     protected:
+        class IteratorImplementationBase {
+            public:
+                virtual fp& operator*()=0;
+                virtual IteratorImplementationBase& operator++()=0;
+        };
+        
         Vector() {}
 };

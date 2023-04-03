@@ -22,10 +22,19 @@ int main(){
     mpjd::LinearAlgebra::Vector<int>::Iterator it = myVectorCPU.begin();
 
     std::cout << "V[1] = " << (myVectorCPU)[1] << std::endl;
-    std::cout << "*(++it) = " << *(++it) << std::endl;
+    std::cout << "1 *(++it) = " << *(++it) << std::endl;
 
     std::cout << "V[1] = " << (myVectorCPU)[1] << std::endl;
-    std::cout << "*(--it) = " << *(--it) << std::endl;
+    std::cout << "2 *(--it) = " << *(--it) << std::endl;
+
+    std::cout << "V[1] = " << (myVectorCPU)[1] << std::endl;
+    std::cout << "3 *(it) = " << *(it) << std::endl;
+    std::cout << "4 *(it++) = " << *(it++) << std::endl;
+    std::cout << "5 *(it) = " << *(it) << std::endl;
+
+    std::cout << "3 *(it) = " << *(it) << std::endl;
+    std::cout << "4 *(it--) = " << *(it--) << std::endl;
+    std::cout << "5 *(it) = " << *(it) << std::endl;
 
 
     mpjd::LinearAlgebra::Vector<int>::Iterator it_end = myVectorCPU.end();
@@ -34,7 +43,7 @@ int main(){
     std::cout << "it != it " << (it != it) << std::endl;
     std::cout << "it != it_end " << (it != it_end) << std::endl;
     
-    std::cout << "*(it_end) = " << *(it_end) << std::endl;
+    //std::cout << "*(it_end) = " << *(it_end) << std::endl;
 
     myVectorCPU.clear();
     std::cout << "Capacity = " << myVectorCPU.capacity() << std::endl;

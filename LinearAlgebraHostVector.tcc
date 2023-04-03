@@ -22,7 +22,9 @@ class mpjd::LinearAlgebra::Host_Vector
         class Iterator : public mpjd::LinearAlgebra::Vector<fp>::IteratorImplementationBase {
             public:
                 Iterator(Host_Vector* v = nullptr, unsigned int idx = 0);
+                Iterator* clone();
                 fp& operator*();
+                //Iterator& operator=(mpjd::LinearAlgebra::Vector<fp>::IteratorImplementationBase& otherIterImpl);
                 Iterator& operator++();
                 Iterator& operator--();
                 bool operator==(mpjd::LinearAlgebra::Vector<fp>::IteratorImplementationBase& otherIterImpl);
@@ -47,8 +49,7 @@ template<class fp>
 mpjd::LinearAlgebra::Host_Vector<fp>::Iterator::Iterator(Host_Vector* v, unsigned int idx)
 : _v(v), 
   _idx(idx) {
-  
-  std::cout << _v << std::endl;
+
 }
 template<class fp>
 fp& mpjd::LinearAlgebra::Host_Vector<fp>::Iterator::operator*() {
@@ -84,6 +85,13 @@ mpjd::LinearAlgebra::Host_Vector<fp>::Iterator::operator++() {
 }
 
 template<class fp>
+mpjd::LinearAlgebra::Host_Vector<fp>::Iterator* 
+mpjd::LinearAlgebra::Host_Vector<fp>::Iterator::clone() {
+    mpjd::LinearAlgebra::Host_Vector<fp>::Iterator* newit = new Iterator(this->_v,this->_idx);
+    return newit; 
+}
+
+template<class fp>
 mpjd::LinearAlgebra::Host_Vector<fp>::Iterator& 
 mpjd::LinearAlgebra::Host_Vector<fp>::Iterator::operator--() {
     --_idx; 
@@ -110,14 +118,10 @@ mpjd::LinearAlgebra::Host_Vector<fp>::end() {
 
 template<class fp>
 mpjd::LinearAlgebra::Host_Vector<fp>::Host_Vector() {
-    std::cout << "Host_Vector()" << std::endl;
 }
 
 template<class fp>
 mpjd::LinearAlgebra::Host_Vector<fp>::~Host_Vector() {
-    std::cout << "~Host_Vector() : " 
-              << "Arch: " << _vec_arch
-              << std::endl;
 }
 
 template<class fp>

@@ -1,3 +1,7 @@
+#include <typeinfo>
+#include <cstdlib>
+#include <cstring>
+
 template<class fp>
 class mpjd::LinearAlgebra::Vector 
 {
@@ -14,7 +18,20 @@ class mpjd::LinearAlgebra::Vector
                 Iterator& operator++(){++_iterImpl; return *this;};
                 Iterator& operator--(){--_iterImpl; return *this;};
 
-                //Iterator operator++(int) { Iterator tmp = *this; ++(*this); return tmp; }
+                Iterator operator++(int) {
+                    IteratorImplementationBase* _iterImpl2 = _iterImpl.clone();
+                    Iterator it(*_iterImpl2);
+                    ++(_iterImpl); 
+                    return it;
+                }
+
+                Iterator operator--(int) {
+                    IteratorImplementationBase* _iterImpl2 = _iterImpl.clone();
+                    Iterator it(*_iterImpl2);
+                    --(_iterImpl); 
+                    return it;
+                }
+
                 bool operator==(Iterator& otherIterImpl) { return (*this)._iterImpl==otherIterImpl._iterImpl;}
                 bool operator!=(Iterator& otherIterImpl) { return (*this)._iterImpl!=otherIterImpl._iterImpl;}
             private:
@@ -39,9 +56,9 @@ class mpjd::LinearAlgebra::Vector
                 virtual fp& operator*()=0;
                 virtual IteratorImplementationBase& operator++()=0;
                 virtual IteratorImplementationBase& operator--()=0;
-                //virtual IteratorImplementationBase operator++(int)=0;
                 virtual bool operator==(IteratorImplementationBase& otherIterImpl)=0;
                 virtual bool operator!=(IteratorImplementationBase& otherIterImpl)=0;
+                virtual IteratorImplementationBase* clone()=0;
         };
         
         Vector() {}

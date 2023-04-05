@@ -11,14 +11,27 @@ class mpjd::LinearAlgebra::Vector
     public:
         class Iterator {
             public: 
-                Iterator(IteratorImplementation *iterImpl)
-                : _iterImpl(iterImpl){}
-                ~Iterator(){ delete _iterImpl;}
+                Iterator(IteratorImplementation *iterImpl = NULL)
+                : _iterImpl(iterImpl) { 
+                    std::cout << "New Iterator " << this << std::endl;
+                }
+                ~Iterator() {
+                    std::cout << "Del Iterator " << this << std::endl; 
+                    if(NULL != _iterImpl) delete _iterImpl;
+                }
 
-                fp& operator*(){return (*(*_iterImpl));}
-                Iterator& operator++(){++(*_iterImpl); return *this;};
-                Iterator& operator--(){--(*_iterImpl); return *this;};
-
+                fp& operator*() {return (*(*_iterImpl));}
+                Iterator& operator++() {++(*_iterImpl); return *this;};
+                Iterator& operator--() {--(*_iterImpl); return *this;};
+                
+                Iterator& operator=(const Iterator& otherIterImpl) {
+                    if(NULL != this->_iterImpl) {
+                        delete this->_iterImpl;
+                    }
+                    this->_iterImpl = (otherIterImpl._iterImpl)->clone();
+                    return *this;
+                }
+                
                 Iterator operator++(int) {
                     IteratorImplementation* _iterImpl2 = _iterImpl->clone();
                     Iterator it(_iterImpl2);
@@ -33,8 +46,8 @@ class mpjd::LinearAlgebra::Vector
                     return it;
                 }
 
-                bool operator==(Iterator& otherIterImpl) { return *((this->_iterImpl))==(*(otherIterImpl._iterImpl));}
-                bool operator!=(Iterator& otherIterImpl) { return *((this->_iterImpl))!=(*(otherIterImpl._iterImpl));}
+                bool operator==(const Iterator& otherIterImpl) { return *((this->_iterImpl))==(*(otherIterImpl._iterImpl));}
+                bool operator!=(const Iterator& otherIterImpl) { return *((this->_iterImpl))!=(*(otherIterImpl._iterImpl));}
             private:
                 IteratorImplementation* _iterImpl;
         };
@@ -42,6 +55,7 @@ class mpjd::LinearAlgebra::Vector
         virtual int size() = 0;
         virtual ~Vector() = default;
         
+        virtual const fp* data() = 0;
         virtual fp& operator[](int idx) = 0;
         virtual void reserve(int numVars) = 0; 
         virtual int  capacity() = 0;

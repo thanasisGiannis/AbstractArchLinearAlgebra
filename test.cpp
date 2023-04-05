@@ -45,6 +45,12 @@ int main(){
     
     //std::cout << "*(it_end) = " << *(it_end) << std::endl;
 
+    mpjd::LinearAlgebra::Vector<int>::Iterator it2;
+    it2 = it;
+
+    const int *vector_ptr = myVectorCPU.data();
+    std::cout << "*vector_ptr = " << (*vector_ptr) << std::endl;
+    
     myVectorCPU.clear();
     std::cout << "Capacity = " << myVectorCPU.capacity() << std::endl;
     std::cout << "Size = " << myVectorCPU.size() << std::endl;

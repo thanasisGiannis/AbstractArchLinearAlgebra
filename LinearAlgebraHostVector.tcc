@@ -8,9 +8,11 @@ class mpjd::LinearAlgebra::Host_Vector
         virtual mpjd::LinearAlgebra::Vector<fp>::Iterator begin() override; 
         virtual mpjd::LinearAlgebra::Vector<fp>::Iterator end() override; 
                
-        int size() override; 
         Host_Vector();
         ~Host_Vector();
+        const fp* data() override {return _vector.data();};
+
+        int size() override; 
         fp& operator[](int idx);
         void push_back(fp var);
 
@@ -22,7 +24,7 @@ class mpjd::LinearAlgebra::Host_Vector
         class IteratorImplementationConcrete : public mpjd::LinearAlgebra::Vector<fp>::IteratorImplementation {
             public:
                 IteratorImplementationConcrete(Host_Vector* v = nullptr, unsigned int idx = 0);
-                ~IteratorImplementationConcrete() {std::cout << "~IteratorConcrete()" << std::endl;} 
+                ~IteratorImplementationConcrete(); 
                 
                 IteratorImplementationConcrete* clone();
                 fp& operator*();
@@ -43,17 +45,21 @@ class mpjd::LinearAlgebra::Host_Vector
 
 template<class fp>
 unsigned int mpjd::LinearAlgebra::Host_Vector<fp>::IteratorImplementationConcrete::_max_idx()
-{
-  
+{ 
   return _v->size();
 }
 template<class fp>
 mpjd::LinearAlgebra::Host_Vector<fp>::IteratorImplementationConcrete::IteratorImplementationConcrete(Host_Vector* v, unsigned int idx)
 : _v(v), 
   _idx(idx) {
-std::cout << "IteratorConcrete()" << std::endl;
+std::cout << "new IteratorConcrete "<< this << std::endl;
 
 }
+template<class fp>
+mpjd::LinearAlgebra::Host_Vector<fp>::IteratorImplementationConcrete::~IteratorImplementationConcrete(){
+std::cout << "Del IteratorConcrete "<< this << std::endl;
+}
+
 template<class fp>
 fp& mpjd::LinearAlgebra::Host_Vector<fp>::IteratorImplementationConcrete::operator*() {
     if(_idx <= _max_idx()) {
@@ -68,7 +74,6 @@ fp& mpjd::LinearAlgebra::Host_Vector<fp>::IteratorImplementationConcrete::operat
 template<class fp>
 bool mpjd::LinearAlgebra::Host_Vector<fp>::IteratorImplementationConcrete::
 operator==(mpjd::LinearAlgebra::Vector<fp>::IteratorImplementation& otherIterImpl) {
-    //auto it = static_cast<IteratorImplementationConcrete*>(&otherIterImpl);
     auto* it = (IteratorImplementationConcrete*)(&otherIterImpl);
     return (((*this)._v == (*it)._v) && ((*this)._idx == (*it)._idx));
 }
@@ -76,7 +81,6 @@ operator==(mpjd::LinearAlgebra::Vector<fp>::IteratorImplementation& otherIterImp
 template<class fp>
 bool mpjd::LinearAlgebra::Host_Vector<fp>::IteratorImplementationConcrete::
 operator!=(mpjd::LinearAlgebra::Vector<fp>::IteratorImplementation& otherIterImpl) {
-    //auto it = static_cast<IteratorImplementationConcrete*>(&otherIterImpl);
     auto* it = (IteratorImplementationConcrete*)(&otherIterImpl);
     return !(((*this)._v == (*it)._v) && ((*this)._idx == (*it)._idx));
 }

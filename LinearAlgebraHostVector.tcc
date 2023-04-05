@@ -22,6 +22,8 @@ class mpjd::LinearAlgebra::Host_Vector
         class IteratorImplementationConcrete : public mpjd::LinearAlgebra::Vector<fp>::IteratorImplementation {
             public:
                 IteratorImplementationConcrete(Host_Vector* v = nullptr, unsigned int idx = 0);
+                ~IteratorImplementationConcrete() {std::cout << "~IteratorConcrete()" << std::endl;} 
+                
                 IteratorImplementationConcrete* clone();
                 fp& operator*();
                 //Iterator& operator=(mpjd::LinearAlgebra::Vector<fp>::IteratorImplementation& otherIterImpl);
@@ -49,6 +51,7 @@ template<class fp>
 mpjd::LinearAlgebra::Host_Vector<fp>::IteratorImplementationConcrete::IteratorImplementationConcrete(Host_Vector* v, unsigned int idx)
 : _v(v), 
   _idx(idx) {
+std::cout << "IteratorConcrete()" << std::endl;
 
 }
 template<class fp>
@@ -65,14 +68,16 @@ fp& mpjd::LinearAlgebra::Host_Vector<fp>::IteratorImplementationConcrete::operat
 template<class fp>
 bool mpjd::LinearAlgebra::Host_Vector<fp>::IteratorImplementationConcrete::
 operator==(mpjd::LinearAlgebra::Vector<fp>::IteratorImplementation& otherIterImpl) {
-    auto it = dynamic_cast<IteratorImplementationConcrete*>(&otherIterImpl);
+    //auto it = static_cast<IteratorImplementationConcrete*>(&otherIterImpl);
+    auto* it = (IteratorImplementationConcrete*)(&otherIterImpl);
     return (((*this)._v == (*it)._v) && ((*this)._idx == (*it)._idx));
 }
 
 template<class fp>
 bool mpjd::LinearAlgebra::Host_Vector<fp>::IteratorImplementationConcrete::
 operator!=(mpjd::LinearAlgebra::Vector<fp>::IteratorImplementation& otherIterImpl) {
-    auto it = dynamic_cast<IteratorImplementationConcrete*>(&otherIterImpl);
+    //auto it = static_cast<IteratorImplementationConcrete*>(&otherIterImpl);
+    auto* it = (IteratorImplementationConcrete*)(&otherIterImpl);
     return !(((*this)._v == (*it)._v) && ((*this)._idx == (*it)._idx));
 }
 
@@ -104,7 +109,7 @@ mpjd::LinearAlgebra::Vector<fp>::Iterator
 mpjd::LinearAlgebra::Host_Vector<fp>::begin() {
     mpjd::LinearAlgebra::Host_Vector<fp>::IteratorImplementationConcrete 
     *it = new mpjd::LinearAlgebra::Host_Vector<fp>::IteratorImplementationConcrete(this,0);
-    return  (typename mpjd::LinearAlgebra::Vector<fp>::Iterator(*it));
+    return  (typename mpjd::LinearAlgebra::Vector<fp>::Iterator(it));
 } 
 
 template<class fp>
@@ -112,7 +117,7 @@ mpjd::LinearAlgebra::Vector<fp>::Iterator
 mpjd::LinearAlgebra::Host_Vector<fp>::end() {
     mpjd::LinearAlgebra::Host_Vector<fp>::IteratorImplementationConcrete 
     *it = new mpjd::LinearAlgebra::Host_Vector<fp>::IteratorImplementationConcrete(this,_vector.size()+1);
-    return  (typename mpjd::LinearAlgebra::Vector<fp>::Iterator(*it));
+    return  (typename mpjd::LinearAlgebra::Vector<fp>::Iterator(it));
 } 
 
 

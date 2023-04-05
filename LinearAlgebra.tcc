@@ -12,7 +12,7 @@ mpjd::LinearAlgebra::~LinearAlgebra() {
 template<class fp>
 mpjd::LinearAlgebra::Vector<fp>&
 mpjd::LinearAlgebra::newVector(const mpjd::LinearAlgebra::target_arch arch){
-    
+    // TODO: change return type from reference to smart pointer
     Vector<fp> *p;
     switch(arch){
         case target_arch::CPU:

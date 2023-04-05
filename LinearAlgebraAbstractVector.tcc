@@ -6,12 +6,12 @@ template<class fp>
 class mpjd::LinearAlgebra::Vector 
 {
     protected: 
-        class IteratorImplementationBase;
+        class IteratorImplementation;
     
     public:
         class Iterator {
-            public:
-                Iterator(IteratorImplementationBase &iterImpl)
+            public: // TODO: insert pointer at the Iterator constructor
+                Iterator(IteratorImplementation &iterImpl)
                 : _iterImpl(iterImpl){}
 
                 fp& operator*(){return (*_iterImpl);}
@@ -19,14 +19,14 @@ class mpjd::LinearAlgebra::Vector
                 Iterator& operator--(){--_iterImpl; return *this;};
 
                 Iterator operator++(int) {
-                    IteratorImplementationBase* _iterImpl2 = _iterImpl.clone();
+                    IteratorImplementation* _iterImpl2 = _iterImpl.clone();
                     Iterator it(*_iterImpl2);
                     ++(_iterImpl); 
                     return it;
                 }
 
                 Iterator operator--(int) {
-                    IteratorImplementationBase* _iterImpl2 = _iterImpl.clone();
+                    IteratorImplementation* _iterImpl2 = _iterImpl.clone();
                     Iterator it(*_iterImpl2);
                     --(_iterImpl); 
                     return it;
@@ -35,7 +35,7 @@ class mpjd::LinearAlgebra::Vector
                 bool operator==(Iterator& otherIterImpl) { return (*this)._iterImpl==otherIterImpl._iterImpl;}
                 bool operator!=(Iterator& otherIterImpl) { return (*this)._iterImpl!=otherIterImpl._iterImpl;}
             private:
-                IteratorImplementationBase& _iterImpl;
+                IteratorImplementation& _iterImpl;// TODO: change to pointer
         };
         
         virtual int size() = 0;
@@ -51,14 +51,14 @@ class mpjd::LinearAlgebra::Vector
         
 
     protected:
-        class IteratorImplementationBase {
+        class IteratorImplementation {
             public:
                 virtual fp& operator*()=0;
-                virtual IteratorImplementationBase& operator++()=0;
-                virtual IteratorImplementationBase& operator--()=0;
-                virtual bool operator==(IteratorImplementationBase& otherIterImpl)=0;
-                virtual bool operator!=(IteratorImplementationBase& otherIterImpl)=0;
-                virtual IteratorImplementationBase* clone()=0;
+                virtual IteratorImplementation& operator++()=0;
+                virtual IteratorImplementation& operator--()=0;
+                virtual bool operator==(IteratorImplementation& otherIterImpl)=0;
+                virtual bool operator!=(IteratorImplementation& otherIterImpl)=0;
+                virtual IteratorImplementation* clone()=0;
         };
         
         Vector() {}

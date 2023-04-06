@@ -1,4 +1,5 @@
 #include <functional>
+#include <memory>
 
 template<class fp> 
 class mpjd::LinearAlgebra::Host_Vector
@@ -127,10 +128,12 @@ mpjd::LinearAlgebra::Host_Vector<fp>::end() {
 
 template<class fp>
 mpjd::LinearAlgebra::Host_Vector<fp>::Host_Vector() {
+    std::cout << "New Host_Vector" << std::endl;
 }
 
 template<class fp>
 mpjd::LinearAlgebra::Host_Vector<fp>::~Host_Vector() {
+    std::cout << "Del Host_Vector" << std::endl;
 }
 
 template<class fp>

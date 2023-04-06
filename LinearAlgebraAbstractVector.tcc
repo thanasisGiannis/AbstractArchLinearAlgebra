@@ -1,6 +1,7 @@
 #include <typeinfo>
 #include <cstdlib>
 #include <cstring>
+#include <memory>
 
 template<class fp>
 class mpjd::LinearAlgebra::Vector 

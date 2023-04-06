@@ -20,7 +20,7 @@ class mpjd::LinearAlgebra::Host_Vector
         void reserve(int numVars); 
         int  capacity();
         void clear();
-        
+        const target_arch getArch() { return _vec_arch;}
     private: 
         class IteratorImplementationConcrete : public mpjd::LinearAlgebra::Vector<fp>::IteratorImplementation {
             public:
@@ -29,7 +29,6 @@ class mpjd::LinearAlgebra::Host_Vector
                 
                 IteratorImplementationConcrete* clone();
                 fp& operator*();
-                //Iterator& operator=(mpjd::LinearAlgebra::Vector<fp>::IteratorImplementation& otherIterImpl);
                 IteratorImplementationConcrete& operator++();
                 IteratorImplementationConcrete& operator--();
                 bool operator==(mpjd::LinearAlgebra::Vector<fp>::IteratorImplementation& otherIterImpl);
@@ -53,12 +52,12 @@ template<class fp>
 mpjd::LinearAlgebra::Host_Vector<fp>::IteratorImplementationConcrete::IteratorImplementationConcrete(Host_Vector* v, unsigned int idx)
 : _v(v), 
   _idx(idx) {
-std::cout << "new IteratorConcrete "<< this << std::endl;
+    //std::cout << "new IteratorConcrete "<< this << std::endl;
 
 }
 template<class fp>
 mpjd::LinearAlgebra::Host_Vector<fp>::IteratorImplementationConcrete::~IteratorImplementationConcrete(){
-std::cout << "Del IteratorConcrete "<< this << std::endl;
+    //std::cout << "Del IteratorConcrete "<< this << std::endl;
 }
 
 template<class fp>
@@ -83,14 +82,14 @@ template<class fp>
 bool mpjd::LinearAlgebra::Host_Vector<fp>::IteratorImplementationConcrete::
 operator!=(mpjd::LinearAlgebra::Vector<fp>::IteratorImplementation& otherIterImpl) {
     auto* it = (IteratorImplementationConcrete*)(&otherIterImpl);
-    return !(((*this)._v == (*it)._v) && ((*this)._idx == (*it)._idx));
+    return (((*this)._v != (*it)._v) || ((*this)._idx != (*it)._idx));
 }
 
 template<class fp>
 mpjd::LinearAlgebra::Host_Vector<fp>::IteratorImplementationConcrete& 
 mpjd::LinearAlgebra::Host_Vector<fp>::IteratorImplementationConcrete::operator++() {
     ++_idx; 
-    if(_idx > _max_idx()+1) _idx = _max_idx()+1;
+    if(_idx > _max_idx()) _idx = _max_idx()+1;
     return *this;
 }
 
@@ -121,19 +120,19 @@ template<class fp>
 mpjd::LinearAlgebra::Vector<fp>::Iterator
 mpjd::LinearAlgebra::Host_Vector<fp>::end() {
     mpjd::LinearAlgebra::Host_Vector<fp>::IteratorImplementationConcrete 
-    *it = new mpjd::LinearAlgebra::Host_Vector<fp>::IteratorImplementationConcrete(this,_vector.size()+1);
+    *it = new mpjd::LinearAlgebra::Host_Vector<fp>::IteratorImplementationConcrete(this,_vector.size());
     return  (typename mpjd::LinearAlgebra::Vector<fp>::Iterator(it));
 } 
 
 
 template<class fp>
 mpjd::LinearAlgebra::Host_Vector<fp>::Host_Vector() {
-    std::cout << "New Host_Vector" << std::endl;
+    //std::cout << "New Host_Vector" << std::endl;
 }
 
 template<class fp>
 mpjd::LinearAlgebra::Host_Vector<fp>::~Host_Vector() {
-    std::cout << "Del Host_Vector" << std::endl;
+    //std::cout << "Del Host_Vector" << std::endl;
 }
 
 template<class fp>

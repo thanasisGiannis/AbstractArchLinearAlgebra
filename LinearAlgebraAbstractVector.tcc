@@ -14,10 +14,10 @@ class mpjd::LinearAlgebra::Vector
             public: 
                 Iterator(IteratorImplementation *iterImpl = NULL)
                 : _iterImpl(iterImpl) { 
-                    std::cout << "New Iterator " << this << std::endl;
+                    //std::cout << "New Iterator " << this << std::endl;
                 }
                 ~Iterator() {
-                    std::cout << "Del Iterator " << this << std::endl; 
+                    //std::cout << "Del Iterator " << this << std::endl; 
                     if(NULL != _iterImpl) delete _iterImpl;
                 }
 
@@ -49,6 +49,7 @@ class mpjd::LinearAlgebra::Vector
 
                 bool operator==(const Iterator& otherIterImpl) { return *((this->_iterImpl))==(*(otherIterImpl._iterImpl));}
                 bool operator!=(const Iterator& otherIterImpl) { return *((this->_iterImpl))!=(*(otherIterImpl._iterImpl));}
+                
             private:
                 IteratorImplementation* _iterImpl;
         };
@@ -62,6 +63,7 @@ class mpjd::LinearAlgebra::Vector
         virtual int  capacity() = 0;
         virtual void clear() = 0;
         virtual void push_back(fp var) = 0; 
+        virtual const target_arch getArch() = 0;
         virtual mpjd::LinearAlgebra::Vector<fp>::Iterator begin() = 0; 
         virtual mpjd::LinearAlgebra::Vector<fp>::Iterator end() = 0; 
         

@@ -22,7 +22,7 @@ namespace mpjd {
             class Vector;
 
             template<class fp>
-            std::shared_ptr<Vector<fp>> newVector(target_arch arch);
+            std::unique_ptr<Vector<fp>> newVector(target_arch arch);
 
         private:
             template<class fp> 

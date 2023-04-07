@@ -79,6 +79,14 @@ bool Vector_iterator_test() {
             }
         }
 
+        num  = nums.end();
+        for( auto vVal = vec->end(); vVal!= vec->begin(); --vVal,--num){
+            std::cout << *num << " " << *vVal << std::endl;
+            if(*num != *vVal) {
+                testValidity &= false;
+            }
+        }
+        
     } catch (...) {
         testValidity = false;
     }

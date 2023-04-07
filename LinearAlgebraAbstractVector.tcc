@@ -64,9 +64,14 @@ class mpjd::LinearAlgebra::Vector
         virtual void clear() = 0;
         virtual void push_back(fp var) = 0; 
         virtual const target_arch getArch() = 0;
+
         virtual mpjd::LinearAlgebra::Vector<fp>::Iterator begin() = 0; 
         virtual mpjd::LinearAlgebra::Vector<fp>::Iterator end() = 0; 
         
+        //virtual mpjd::LinearAlgebra::Vector<fp>::Iterator rbegin() = 0; 
+        //virtual mpjd::LinearAlgebra::Vector<fp>::Iterator rend() = 0; 
+        
+        //virtual Vector& operator=(Vector& otherV)=0;
 
     protected:
         class IteratorImplementation {

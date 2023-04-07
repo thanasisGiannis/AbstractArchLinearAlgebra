@@ -21,6 +21,8 @@ class mpjd::LinearAlgebra::Host_Vector
         int  capacity();
         void clear();
         const target_arch getArch() { return _vec_arch;}
+        //virtual Host_Vector& operator=(Host_Vector& otherV)=0;
+
     private: 
         class IteratorImplementationConcrete : public mpjd::LinearAlgebra::Vector<fp>::IteratorImplementation {
             public:
@@ -46,7 +48,7 @@ class mpjd::LinearAlgebra::Host_Vector
 template<class fp>
 unsigned int mpjd::LinearAlgebra::Host_Vector<fp>::IteratorImplementationConcrete::_max_idx()
 { 
-  return _v->size();
+  return _v->size()-1;
 }
 template<class fp>
 mpjd::LinearAlgebra::Host_Vector<fp>::IteratorImplementationConcrete::IteratorImplementationConcrete(Host_Vector* v, unsigned int idx)
@@ -62,7 +64,7 @@ mpjd::LinearAlgebra::Host_Vector<fp>::IteratorImplementationConcrete::~IteratorI
 
 template<class fp>
 fp& mpjd::LinearAlgebra::Host_Vector<fp>::IteratorImplementationConcrete::operator*() {
-    if(_idx <= _max_idx()) {
+    if(0 <= _idx && _idx <= _max_idx()) {
         fp& num = this->_v->_vector[_idx];
         return num;
     } else {

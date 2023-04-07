@@ -86,6 +86,17 @@ bool Vector_iterator_test() {
             }
         }
         
+        mpjd::LinearAlgebra::Vector<int>::Iterator it2 = vec->begin();
+        ++it2;
+        mpjd::LinearAlgebra::Vector<int>::Iterator it3;
+        it3 = it2;
+
+        testValidity &= (*it3 == *it2);
+
+        ++it3;
+        testValidity &= (*it3 != *it2);
+
+
     } catch (...) {
         testValidity = false;
     }

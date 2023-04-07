@@ -23,7 +23,7 @@ class mpjd::LinearAlgebra::Vector
 
                 fp& operator*() {return (*(*_iterImpl));}
                 Iterator& operator++() {++(*_iterImpl); return *this;};
-                Iterator& operator--() {--(*_iterImpl); return *this;};
+                //Iterator& operator--() {--(*_iterImpl); return *this;};
                 
                 Iterator& operator=(const Iterator& otherIterImpl) {
                     if(NULL != this->_iterImpl) {
@@ -68,8 +68,8 @@ class mpjd::LinearAlgebra::Vector
         virtual mpjd::LinearAlgebra::Vector<fp>::Iterator begin() = 0; 
         virtual mpjd::LinearAlgebra::Vector<fp>::Iterator end() = 0; 
         
-        //virtual mpjd::LinearAlgebra::Vector<fp>::Iterator rbegin() = 0; 
-        //virtual mpjd::LinearAlgebra::Vector<fp>::Iterator rend() = 0; 
+        virtual mpjd::LinearAlgebra::Vector<fp>::Iterator rbegin() = 0; 
+        virtual mpjd::LinearAlgebra::Vector<fp>::Iterator rend() = 0; 
         
         //virtual Vector& operator=(Vector& otherV)=0;
 
@@ -79,7 +79,7 @@ class mpjd::LinearAlgebra::Vector
                 virtual ~IteratorImplementation()=default;
                 virtual fp& operator*()=0;
                 virtual IteratorImplementation& operator++()=0;
-                virtual IteratorImplementation& operator--()=0;
+                //virtual IteratorImplementation& operator--()=0;
                 virtual bool operator==(IteratorImplementation& otherIterImpl)=0;
                 virtual bool operator!=(IteratorImplementation& otherIterImpl)=0;
                 virtual IteratorImplementation* clone()=0;

@@ -69,8 +69,8 @@ bool Vector_iterator_test() {
 
     bool testValidity = true;
     try {
-        auto nums = {0,1,2,3,4,5,6,7,8,9};
-        for(auto i:nums) vec->push_back(i);
+        std::vector<int> nums({0,1,2,3,4,5,6,7,8,9});
+        for(auto i : nums) vec->push_back(i);
 
         auto num  = nums.begin();
         for( auto vVal = vec->begin(); vVal!= vec->end(); vVal++,num++){
@@ -79,10 +79,9 @@ bool Vector_iterator_test() {
             }
         }
 
-        num  = nums.end();
-        for( auto vVal = vec->end(); vVal!= vec->begin(); --vVal,--num){
-            std::cout << *num << " " << *vVal << std::endl;
-            if(*num != *vVal) {
+        auto num_r  = nums.rbegin();
+        for( auto vVal = vec->rbegin(); vVal!= vec->rend(); vVal++, num_r++){
+            if(*(num_r) != *(vVal)) {
                 testValidity &= false;
             }
         }

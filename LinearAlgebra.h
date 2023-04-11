@@ -21,9 +21,23 @@ namespace mpjd {
             template<class fp>
             class Vector;
 
+            //template<class fp>
+            //class BlockVector; // TODO
+
+            //template<class fp>
+            //class DenseMatrix; // TODO
+
             template<class fp>
             std::unique_ptr<Vector<fp>> newVector(target_arch arch);
 
+            //template<class fp>
+            //std::unique_ptr<Vector<fp>> newBlockVector(target_arch arch); // TODO
+
+            //template<class fp>
+            //std::unique_ptr<Vector<fp>> newDenseMatrix(target_arch arch); // TODO
+
+            //template<class fp>
+            //class Operations;
         private:
             template<class fp> 
             class Host_Vector;

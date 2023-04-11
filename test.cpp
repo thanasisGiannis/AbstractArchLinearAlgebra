@@ -104,11 +104,71 @@ bool Vector_iterator_test() {
 
 }
 
+bool Vector_resize_test() {
+    mpjd::LinearAlgebra la;
+    mpjdVector<int>
+    vec      = la.newVector<int>(mpjd::LinearAlgebra::target_arch::CPU);
+
+    bool testValidity = true;
+    try {
+
+        vec->resize(10);
+        if(10 != vec->size()){
+            testValidity &= false;
+        }
+
+        vec->resize(9);
+        if(9 != vec->size()){
+            testValidity &= false;
+        }
+
+        vec->clear();
+        if(0 != vec->size()){
+            testValidity &= false;
+        }
+
+        vec->resize(15);
+        if(15 != vec->size()){
+            testValidity &= false;
+        }
+    } catch (...) {
+        testValidity = false;
+    }
+    return testValidity;
+
+}
+
+bool Vector_init_with_zero_vals() {
+
+    mpjd::LinearAlgebra la;
+    mpjdVector<int>
+    vec      = la.newVector<int>(mpjd::LinearAlgebra::target_arch::CPU);
+
+    bool testValidity = true;
+    try {
+        std::vector<int> nums({1,2,3,4,5,6,7,8,9,10});
+        for(auto i : nums) vec->push_back(i);
+
+        vec->init(0);
+
+        auto num_r  = nums.begin();
+        for( auto vVal = vec->begin(); vVal!= vec->end(); vVal++, num_r++){
+            if((*num_r) == (*vVal)) {
+                testValidity &= false;
+            }
+        }
+    } catch (...) {
+        testValidity = false;
+    }
+    return testValidity;
+}
 int main(){
 
     CHECK(Vector_capacity_test);
     CHECK(Vector_size_test);
     CHECK(Vector_iterator_test);
+    CHECK(Vector_init_with_zero_vals);
+    CHECK(Vector_resize_test);
     /*
 
     std::cout << "SHARED_COUNT: " << myVectorCPU.use_count() << std::endl;

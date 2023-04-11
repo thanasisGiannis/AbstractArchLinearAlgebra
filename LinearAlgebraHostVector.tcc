@@ -17,6 +17,7 @@ class mpjd::LinearAlgebra::Host_Vector
         const fp* data() override {return _vector.data();};
 
         int size() override; 
+        void resize(int dim);
         fp& operator[](int idx);
         void push_back(fp var);
 
@@ -24,7 +25,7 @@ class mpjd::LinearAlgebra::Host_Vector
         int  capacity();
         void clear();
         const target_arch getArch() { return _vec_arch;}
-        //virtual Host_Vector& operator=(Host_Vector& otherV)=0;
+        void init(int val);
 
     private: 
         class IteratorImplementationConcrete : public mpjd::LinearAlgebra::Vector<fp>::IteratorImplementation {
@@ -39,7 +40,6 @@ class mpjd::LinearAlgebra::Host_Vector
                 IteratorImplementationConcrete* clone();
                 fp& operator*();
                 IteratorImplementationConcrete& operator++();
-                //IteratorImplementationConcrete& operator--();
                 bool operator==(mpjd::LinearAlgebra::Vector<fp>::IteratorImplementation& otherIterImpl);
                 bool operator!=(mpjd::LinearAlgebra::Vector<fp>::IteratorImplementation& otherIterImpl);
             private:
@@ -161,6 +161,10 @@ mpjd::LinearAlgebra::Host_Vector<fp>::rend() {
     return  (typename mpjd::LinearAlgebra::Vector<fp>::Iterator(it));
 } 
 
+template<class fp>
+void mpjd::LinearAlgebra::Host_Vector<fp>::init(int val) {
+    std::fill(this->_vector.begin(),this->_vector.end(), static_cast<fp>(0.0));
+}
 
 template<class fp>
 mpjd::LinearAlgebra::Host_Vector<fp>::Host_Vector() {
@@ -187,6 +191,12 @@ template<class fp>
 int mpjd::LinearAlgebra::Host_Vector<fp>::size() {
     return _vector.size();
 } 
+
+
+template<class fp>
+void mpjd::LinearAlgebra::Host_Vector<fp>::resize(int dim) {
+    _vector.resize(dim);
+}
 
 template<class fp>
 void mpjd::LinearAlgebra::Host_Vector<fp>::reserve(int numVars) {

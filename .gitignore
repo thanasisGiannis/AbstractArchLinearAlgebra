@@ -1,4 +1,5 @@
 testLinearAlgebra
+../testLinearAlgebra
 gitHubToken
 build/*
 *.cflags

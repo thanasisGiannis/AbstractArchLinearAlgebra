@@ -3,8 +3,8 @@
 #include <cstring>
 #include <memory>
 
-template<class fp>
-class mpjd::LinearAlgebra::Vector 
+template <class fp>
+class mpjd::LinearAlgebra<fp>::Vector 
 {
     protected: 
         class IteratorImplementation;
@@ -20,8 +20,8 @@ class mpjd::LinearAlgebra::Vector
                 Iterator& operator=(const Iterator& otherIterImpl);
                 Iterator operator++(int);
                 Iterator operator--(int);
-                bool operator==(const Iterator& otherIterImpl);// { return *((this->_iterImpl))==(*(otherIterImpl._iterImpl));}
-                bool operator!=(const Iterator& otherIterImpl);// { return *((this->_iterImpl))!=(*(otherIterImpl._iterImpl));}
+                bool operator==(const Iterator& otherIterImpl);
+                bool operator!=(const Iterator& otherIterImpl);
                 
             private:
                 IteratorImplementation* _iterImpl;
@@ -62,33 +62,33 @@ class mpjd::LinearAlgebra::Vector
 
 
 template<class fp>
-mpjd::LinearAlgebra::Vector<fp>::Iterator::
+mpjd::LinearAlgebra<fp>::Vector::Iterator::
 Iterator(IteratorImplementation *iterImpl)
 : _iterImpl(iterImpl) {}
 
 template<class fp>
-mpjd::LinearAlgebra::Vector<fp>::Iterator::
+mpjd::LinearAlgebra<fp>::Vector::Iterator::
 ~Iterator() {
     if(NULL != _iterImpl) delete _iterImpl;
 }
 
 template<class fp>
-fp& mpjd::LinearAlgebra::Vector<fp>::Iterator::
+fp& mpjd::LinearAlgebra<fp>::Vector::Iterator::
 operator*() {
     return (*(*_iterImpl));
 }
 
 template<class fp>
-mpjd::LinearAlgebra::Vector<fp>::Iterator& 
-mpjd::LinearAlgebra::Vector<fp>::Iterator::
+mpjd::LinearAlgebra<fp>::Vector::Iterator& 
+mpjd::LinearAlgebra<fp>::Vector::Iterator::
 operator++() {
     ++(*_iterImpl); 
     return *this;
 }
 
 template<class fp>
-mpjd::LinearAlgebra::Vector<fp>::Iterator& 
-mpjd::LinearAlgebra::Vector<fp>::Iterator::
+mpjd::LinearAlgebra<fp>::Vector::Iterator& 
+mpjd::LinearAlgebra<fp>::Vector::Iterator::
 operator=(const Iterator& otherIterImpl) {
     if(NULL != this->_iterImpl) {
         delete this->_iterImpl;
@@ -98,8 +98,8 @@ operator=(const Iterator& otherIterImpl) {
 }
 
 template<class fp>
-mpjd::LinearAlgebra::Vector<fp>::Iterator 
-mpjd::LinearAlgebra::Vector<fp>::Iterator::
+mpjd::LinearAlgebra<fp>::Vector::Iterator 
+mpjd::LinearAlgebra<fp>::Vector::Iterator::
 operator++(int) {
     IteratorImplementation* _iterImpl2 = _iterImpl->clone();
     Iterator it(_iterImpl2);
@@ -108,8 +108,8 @@ operator++(int) {
 }
 
 template<class fp>
-mpjd::LinearAlgebra::Vector<fp>::Iterator 
-mpjd::LinearAlgebra::Vector<fp>::Iterator::
+mpjd::LinearAlgebra<fp>::Vector::Iterator 
+mpjd::LinearAlgebra<fp>::Vector::Iterator::
 operator--(int) {
     IteratorImplementation* _iterImpl2 = _iterImpl->clone();
     Iterator it(_iterImpl2);
@@ -118,13 +118,13 @@ operator--(int) {
 }
 
 template<class fp>
-bool mpjd::LinearAlgebra::Vector<fp>::Iterator::
+bool mpjd::LinearAlgebra<fp>::Vector::Iterator::
 operator==(const Iterator& otherIterImpl) { 
     return *((this->_iterImpl))==(*(otherIterImpl._iterImpl));
 }
 
 template<class fp>
-bool mpjd::LinearAlgebra::Vector<fp>::Iterator::
+bool mpjd::LinearAlgebra<fp>::Vector::Iterator::
 operator!=(const Iterator& otherIterImpl) { 
     return *((this->_iterImpl))!=(*(otherIterImpl._iterImpl));
 }

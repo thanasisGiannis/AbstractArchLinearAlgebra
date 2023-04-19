@@ -19,15 +19,15 @@ if(false == a(__VA_OPT__(,) __VA_ARGS__)) { \
 };\
 std::cout << coutgreen << "Success Test: " << coutcyan << #a << coutreset << std::endl;
 
-template<class fp>
-using mpjdVector = std::shared_ptr<mpjd::LinearAlgebra::Vector<fp>>;
+
+using mpjdVector = std::shared_ptr<mpjd::LinearAlgebra<int>::Vector>;
 
 
 bool Vector_capacity_test() {
 
-    mpjd::LinearAlgebra la;
-    mpjdVector<int>
-    vec      = la.newVector<int>(mpjd::LinearAlgebra::target_arch::CPU);
+    mpjd::LinearAlgebra<int> la;
+    mpjdVector
+    vec      = la.newVector(mpjd::LinearAlgebra<int>::target_arch::CPU);
     
     bool testValidity = true;
     try {
@@ -41,11 +41,12 @@ bool Vector_capacity_test() {
     return testValidity;
 }
 
+
 bool Vector_size_test() {
 
-    mpjd::LinearAlgebra la;
-    mpjdVector<int>
-    vec      = la.newVector<int>(mpjd::LinearAlgebra::target_arch::CPU);
+    mpjd::LinearAlgebra<int> la;
+    mpjdVector
+    vec      = la.newVector(mpjd::LinearAlgebra<int>::target_arch::CPU);
 
     bool testValidity = true;
     try {
@@ -63,9 +64,10 @@ bool Vector_size_test() {
 }
 
 bool Vector_iterator_test() {
-    mpjd::LinearAlgebra la;
-    mpjdVector<int>
-    vec      = la.newVector<int>(mpjd::LinearAlgebra::target_arch::CPU);
+
+    mpjd::LinearAlgebra<int> la;
+    mpjdVector
+    vec      = la.newVector(mpjd::LinearAlgebra<int>::target_arch::CPU);
 
     bool testValidity = true;
     try {
@@ -86,9 +88,9 @@ bool Vector_iterator_test() {
             }
         }
         
-        mpjd::LinearAlgebra::Vector<int>::Iterator it2 = vec->begin();
+        mpjd::LinearAlgebra<int>::Vector::Iterator it2 = vec->begin();
         ++it2;
-        mpjd::LinearAlgebra::Vector<int>::Iterator it3;
+        mpjd::LinearAlgebra<int>::Vector::Iterator it3;
         it3 = it2;
 
         testValidity &= (*it3 == *it2);
@@ -105,9 +107,10 @@ bool Vector_iterator_test() {
 }
 
 bool Vector_resize_test() {
-    mpjd::LinearAlgebra la;
-    mpjdVector<int>
-    vec      = la.newVector<int>(mpjd::LinearAlgebra::target_arch::CPU);
+    
+    mpjd::LinearAlgebra<int> la;
+    mpjdVector
+    vec      = la.newVector(mpjd::LinearAlgebra<int>::target_arch::CPU);
 
     bool testValidity = true;
     try {
@@ -140,9 +143,9 @@ bool Vector_resize_test() {
 
 bool Vector_init_with_zero_vals() {
 
-    mpjd::LinearAlgebra la;
-    mpjdVector<int>
-    vec      = la.newVector<int>(mpjd::LinearAlgebra::target_arch::CPU);
+    mpjd::LinearAlgebra<int> la;
+    mpjdVector
+    vec      = la.newVector(mpjd::LinearAlgebra<int>::target_arch::CPU);
 
     bool testValidity = true;
     try {
@@ -162,6 +165,8 @@ bool Vector_init_with_zero_vals() {
     }
     return testValidity;
 }
+
+
 int main(){
 
     CHECK(Vector_capacity_test);
@@ -169,6 +174,7 @@ int main(){
     CHECK(Vector_iterator_test);
     CHECK(Vector_init_with_zero_vals);
     CHECK(Vector_resize_test);
+
     /*
 
     std::cout << "SHARED_COUNT: " << myVectorCPU.use_count() << std::endl;

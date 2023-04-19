@@ -6,6 +6,7 @@
 
 namespace mpjd {
 
+    template<class fp>
     class LinearAlgebra 
     {
         public:
@@ -14,11 +15,11 @@ namespace mpjd {
                 GPU
             };
             
-            LinearAlgebra(target_arch arch = mpjd::LinearAlgebra::target_arch::CPU);
+            LinearAlgebra(target_arch arch = target_arch::CPU);
 
             ~LinearAlgebra();
 
-            template<class fp>
+            //template<class fp>
             class Vector;
 
             //template<class fp>
@@ -27,8 +28,9 @@ namespace mpjd {
             //template<class fp>
             //class DenseMatrix; // TODO
 
-            template<class fp>
-            std::unique_ptr<Vector<fp>> newVector(target_arch arch);
+            
+            std::unique_ptr<Vector> 
+                newVector(target_arch arch);
 
             //template<class fp>
             //std::unique_ptr<Vector<fp>> newBlockVector(target_arch arch); // TODO
@@ -39,10 +41,8 @@ namespace mpjd {
             //template<class fp>
             //class Operations;
         private:
-            template<class fp> 
             class Host_Vector;
 
-            template<class fp> 
             class Device_Vector;
 
             target_arch _arch;
@@ -53,4 +53,4 @@ namespace mpjd {
 #include "LinearAlgebra.tcc"
 #include "LinearAlgebraAbstractVector.tcc"
 #include "LinearAlgebraHostVector.tcc"
-#include "LinearAlgebraDeviceVector.tcc"
+//#include "LinearAlgebraDeviceVector.tcc"

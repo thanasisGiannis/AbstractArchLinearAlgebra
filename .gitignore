@@ -1,9 +1,6 @@
-testLinearAlgebra
-../testLinearAlgebra
 gitHubToken
 build/*
-bin/*
-../bin/*
+../example/bin/*
 *.cflags
 *.config
 *.creator

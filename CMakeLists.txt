@@ -6,12 +6,12 @@ project(AbstractLinearAlgebra)
 
 set(CMAKE_CXX_FLAGS "-O3 -g3")
 
-set(SRC test.cpp)
+set(SRC ${CMAKE_CURRENT_SOURCE_DIR}/example/test.cpp)
 include_directories(include/)
 include_directories(src/)
 
 add_executable(testLinearAlgebra ${SRC})
-set_target_properties(testLinearAlgebra PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/bin")
+set_target_properties(testLinearAlgebra PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/example/bin")
 
 
 target_link_libraries(testLinearAlgebra PUBLIC -lm -ldl)

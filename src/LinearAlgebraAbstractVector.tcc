@@ -12,40 +12,16 @@ class mpjd::LinearAlgebra::Vector
     public:
         class Iterator {
             public: 
-                Iterator(IteratorImplementation *iterImpl = NULL)
-                : _iterImpl(iterImpl) { 
-                }
-                ~Iterator() {
-                    if(NULL != _iterImpl) delete _iterImpl;
-                }
+                Iterator(IteratorImplementation *iterImpl = NULL);
+                ~Iterator();
 
-                fp& operator*() {return (*(*_iterImpl));}
-                Iterator& operator++() {++(*_iterImpl); return *this;};
-                
-                Iterator& operator=(const Iterator& otherIterImpl) {
-                    if(NULL != this->_iterImpl) {
-                        delete this->_iterImpl;
-                    }
-                    this->_iterImpl = (otherIterImpl._iterImpl)->clone();
-                    return *this;
-                }
-                
-                Iterator operator++(int) {
-                    IteratorImplementation* _iterImpl2 = _iterImpl->clone();
-                    Iterator it(_iterImpl2);
-                    ++(*_iterImpl); 
-                    return it;
-                }
-
-                Iterator operator--(int) {
-                    IteratorImplementation* _iterImpl2 = _iterImpl->clone();
-                    Iterator it(_iterImpl2);
-                    --(*_iterImpl); 
-                    return it;
-                }
-
-                bool operator==(const Iterator& otherIterImpl) { return *((this->_iterImpl))==(*(otherIterImpl._iterImpl));}
-                bool operator!=(const Iterator& otherIterImpl) { return *((this->_iterImpl))!=(*(otherIterImpl._iterImpl));}
+                fp& operator*();
+                Iterator& operator++();
+                Iterator& operator=(const Iterator& otherIterImpl);
+                Iterator operator++(int);
+                Iterator operator--(int);
+                bool operator==(const Iterator& otherIterImpl);// { return *((this->_iterImpl))==(*(otherIterImpl._iterImpl));}
+                bool operator!=(const Iterator& otherIterImpl);// { return *((this->_iterImpl))!=(*(otherIterImpl._iterImpl));}
                 
             private:
                 IteratorImplementation* _iterImpl;
@@ -83,3 +59,72 @@ class mpjd::LinearAlgebra::Vector
         
         Vector() {}
 };
+
+
+template<class fp>
+mpjd::LinearAlgebra::Vector<fp>::Iterator::
+Iterator(IteratorImplementation *iterImpl)
+: _iterImpl(iterImpl) {}
+
+template<class fp>
+mpjd::LinearAlgebra::Vector<fp>::Iterator::
+~Iterator() {
+    if(NULL != _iterImpl) delete _iterImpl;
+}
+
+template<class fp>
+fp& mpjd::LinearAlgebra::Vector<fp>::Iterator::
+operator*() {
+    return (*(*_iterImpl));
+}
+
+template<class fp>
+mpjd::LinearAlgebra::Vector<fp>::Iterator& 
+mpjd::LinearAlgebra::Vector<fp>::Iterator::
+operator++() {
+    ++(*_iterImpl); 
+    return *this;
+}
+
+template<class fp>
+mpjd::LinearAlgebra::Vector<fp>::Iterator& 
+mpjd::LinearAlgebra::Vector<fp>::Iterator::
+operator=(const Iterator& otherIterImpl) {
+    if(NULL != this->_iterImpl) {
+        delete this->_iterImpl;
+    }
+    this->_iterImpl = (otherIterImpl._iterImpl)->clone();
+    return *this;
+}
+
+template<class fp>
+mpjd::LinearAlgebra::Vector<fp>::Iterator 
+mpjd::LinearAlgebra::Vector<fp>::Iterator::
+operator++(int) {
+    IteratorImplementation* _iterImpl2 = _iterImpl->clone();
+    Iterator it(_iterImpl2);
+    ++(*_iterImpl); 
+    return it;
+}
+
+template<class fp>
+mpjd::LinearAlgebra::Vector<fp>::Iterator 
+mpjd::LinearAlgebra::Vector<fp>::Iterator::
+operator--(int) {
+    IteratorImplementation* _iterImpl2 = _iterImpl->clone();
+    Iterator it(_iterImpl2);
+    --(*_iterImpl); 
+    return it;
+}
+
+template<class fp>
+bool mpjd::LinearAlgebra::Vector<fp>::Iterator::
+operator==(const Iterator& otherIterImpl) { 
+    return *((this->_iterImpl))==(*(otherIterImpl._iterImpl));
+}
+
+template<class fp>
+bool mpjd::LinearAlgebra::Vector<fp>::Iterator::
+operator!=(const Iterator& otherIterImpl) { 
+    return *((this->_iterImpl))!=(*(otherIterImpl._iterImpl));
+}

@@ -2,17 +2,11 @@ cmake_minimum_required(VERSION 3.16)
 
 add_definitions(-std=c++2a)
 project(AbstractLinearAlgebra)
-
-
 set(CMAKE_CXX_FLAGS "-O3 -g3")
-
 set(SRC ${CMAKE_CURRENT_SOURCE_DIR}/example/test.cpp)
 include_directories(include/)
 include_directories(src/)
-
+include_directories(lib/)
 add_executable(testLinearAlgebra ${SRC})
 set_target_properties(testLinearAlgebra PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/example/bin")
-
-
-target_link_libraries(testLinearAlgebra PUBLIC -lm -ldl)
-
+target_link_directories(testLinearAlgebra PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/lib")

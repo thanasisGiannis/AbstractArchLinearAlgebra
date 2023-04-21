@@ -19,27 +19,41 @@ namespace mpjd {
 
             ~LinearAlgebra();
 
-            //template<class fp>
             class Vector;
-
-            //template<class fp>
-            //class BlockVector; // TODO
-
-            //template<class fp>
-            //class DenseMatrix; // TODO
-
             
             std::unique_ptr<Vector> 
                 newVector(target_arch arch);
 
-            //template<class fp>
-            //std::unique_ptr<Vector<fp>> newBlockVector(target_arch arch); // TODO
+/*
+            void gemm(const char transa, const char  transb,
+            const  int m, const int n, const int k, 
+            const double alpha, const double* a, const int lda,
+            const double* b, const int ldb,
+            const double beta, double* c, const int ldc); 
+*/
+            fp dot(const int dim, const fp *x, const int incx,
+                const fp *y, const int incy) ;
+/*
+            void axpy(const int dim, const double alpha, 
+                const double *x, const int incx, double *y, const int incy);
+            double nrm2(const int dim, const double *x, const int incx);
+            void scal(const int dim, const double alpha, 
+                double *x, const int incx);
 
-            //template<class fp>
-            //std::unique_ptr<Vector<fp>> newDenseMatrix(target_arch arch); // TODO
-
-            //template<class fp>
-            //class Operations;
+            void geam(const char transa, const char transb,
+                    int m, int n,
+                    const double alpha, const double *A, int lda,
+                    const double beta, const double *B, int ldb,
+                    double *C, int ldc);
+            
+            void trsm(const char Layout, const char side,
+                                    const char uplo, const char transa,
+                                    const char diag, 
+                                    const int dim, const int nrhs,
+                                    const double alpha, 
+                                    const double *A, const int ldA, 
+                                    double *B , const int ldB);
+*/                                    
         private:
             class Host_Vector;
 
@@ -54,3 +68,4 @@ namespace mpjd {
 #include "LinearAlgebraAbstractVector.tcc"
 #include "LinearAlgebraHostVector.tcc"
 //#include "LinearAlgebraDeviceVector.tcc"
+#include "LinearAlgebraOperationsDouble.tcc"

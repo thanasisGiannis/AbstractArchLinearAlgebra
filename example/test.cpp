@@ -166,6 +166,32 @@ bool Vector_init_with_zero_vals() {
     return testValidity;
 }
 
+bool Vector_dot() {
+
+    mpjd::LinearAlgebra<double> la;
+    std::shared_ptr<mpjd::LinearAlgebra<double>::Vector>
+    x      = la.newVector(mpjd::LinearAlgebra<double>::target_arch::CPU);
+
+    std::shared_ptr<mpjd::LinearAlgebra<double>::Vector>
+    y      = la.newVector(mpjd::LinearAlgebra<double>::target_arch::CPU);
+
+    bool testValidity = true;
+    try {
+        std::vector<double> nums({1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0});
+        for(auto i : nums){
+            x->push_back(i);
+            y->push_back(i);
+        } 
+
+        auto a = la.dot(x->size(),x->data(),1,y->data(),1);
+        if(std::abs(10.0-a) > 1e-08){
+            testValidity = false;
+        }
+    } catch (...) {
+        testValidity = false;
+    }
+    return testValidity;
+}
 
 int main(){
 
@@ -174,6 +200,7 @@ int main(){
     CHECK(Vector_iterator_test);
     CHECK(Vector_init_with_zero_vals);
     CHECK(Vector_resize_test);
+    CHECK(Vector_dot);
 
     /*
 

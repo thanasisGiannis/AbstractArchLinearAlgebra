@@ -193,6 +193,273 @@ bool Vector_dot() {
     return testValidity;
 }
 
+bool Vector_axpy() {
+
+    mpjd::LinearAlgebra<double> la;
+    std::shared_ptr<mpjd::LinearAlgebra<double>::Vector>
+    x      = la.newVector(mpjd::LinearAlgebra<double>::target_arch::CPU);
+
+    std::shared_ptr<mpjd::LinearAlgebra<double>::Vector>
+    y      = la.newVector(mpjd::LinearAlgebra<double>::target_arch::CPU);
+
+    bool testValidity = true;
+    try {
+        std::vector<double> nums({1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0});
+        for(auto i : nums){
+            x->push_back(i);
+            y->push_back(i);
+        } 
+
+        la.axpy(x->size(),1.0,x->data(),1,y->data(),1);
+
+        for(auto i=0; i<x->size(); i++){
+            if(std::abs(static_cast<double>(2.0)-(*y)[i]) > 1e-08){
+                testValidity = false;
+            }
+        }
+    } catch (...) {
+        testValidity = false;
+    }
+    return testValidity;
+}
+
+bool Vector_nrm2() {
+
+    mpjd::LinearAlgebra<double> la;
+    std::shared_ptr<mpjd::LinearAlgebra<double>::Vector>
+    x      = la.newVector(mpjd::LinearAlgebra<double>::target_arch::CPU);
+
+    bool testValidity = true;
+    try {
+        std::vector<double> nums({0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0});
+        for(auto i : nums){
+            x->push_back(i);
+        } 
+
+        auto nrmx = la.nrm2(x->size(),x->data(),1);
+
+        if(std::abs(static_cast<double>(0.0)-nrmx) > 1e-08){
+            testValidity = false;
+        }
+    } catch (...) {
+        testValidity = false;
+    }
+    return testValidity;
+}
+
+bool Vector_scal() {
+
+    mpjd::LinearAlgebra<double> la;
+    std::shared_ptr<mpjd::LinearAlgebra<double>::Vector>
+    x      = la.newVector(mpjd::LinearAlgebra<double>::target_arch::CPU);
+
+    bool testValidity = true;
+    try {
+        std::vector<double> nums({1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0});
+        for(auto i : nums){
+            x->push_back(i);
+        } 
+
+        la.scal(x->size(),2.0,x->data(),1);
+
+        for(auto i=0; i<x->size(); i++){
+            if(std::abs(static_cast<double>(2.0)-(*x)[i]) > 1e-08){
+                testValidity = false;
+            }
+        }
+    } catch (...) {
+        testValidity = false;
+    }
+    return testValidity;
+}
+
+
+bool Vector_geam() {
+
+    mpjd::LinearAlgebra<double> la;
+    std::shared_ptr<mpjd::LinearAlgebra<double>::Vector>
+    A      = la.newVector(mpjd::LinearAlgebra<double>::target_arch::CPU);
+    int ldA;
+
+    std::shared_ptr<mpjd::LinearAlgebra<double>::Vector>
+    B      = la.newVector(mpjd::LinearAlgebra<double>::target_arch::CPU);
+    int ldB;
+    
+    std::shared_ptr<mpjd::LinearAlgebra<double>::Vector>
+    C      = la.newVector(mpjd::LinearAlgebra<double>::target_arch::CPU);
+    int ldC;
+    
+
+    int rows,cols;
+
+    bool testValidity = true;
+    try {
+        std::vector<double> nums({1.0, 1.0, 1.0,
+                                  1.0, 1.0, 1.0,
+                                  1.0, 1.0, 1.0}); // this is the transposed
+        rows = 3;
+        cols = 3;
+
+        ldA = rows;
+        ldB = ldA;
+        ldC = ldA;
+
+        double one = 1.0;
+
+        for(auto i : nums){
+            A->push_back(i);
+            B->push_back(i);
+            C->push_back(0.0);
+        } 
+
+        la.geam('N', 'N', rows, cols,
+            one, A->data(), ldA,
+            one, B->data(), ldB,
+            C->data(), ldC);
+
+        for(auto i=0; i<C->size(); i++){
+            if(std::abs(static_cast<double>(2.0)-(*C)[i]) > 1e-08){
+                testValidity = false;
+            }
+        }
+    } catch (...) {
+        testValidity = false;
+    }
+    return testValidity;
+}
+
+
+bool Vector_gemm() {
+
+    mpjd::LinearAlgebra<double> la;
+    std::shared_ptr<mpjd::LinearAlgebra<double>::Vector>
+    A      = la.newVector(mpjd::LinearAlgebra<double>::target_arch::CPU);
+    int ldA;
+
+    std::shared_ptr<mpjd::LinearAlgebra<double>::Vector>
+    B      = la.newVector(mpjd::LinearAlgebra<double>::target_arch::CPU);
+    int ldB;
+    
+    std::shared_ptr<mpjd::LinearAlgebra<double>::Vector>
+    C      = la.newVector(mpjd::LinearAlgebra<double>::target_arch::CPU);
+    int ldC;
+    
+
+    int rows,cols;
+
+    bool testValidity = true;
+    try {
+        std::vector<double> Anums({1.0, 1.0, 1.0,
+                                   1.0, 1.0, 1.0,
+                                   1.0, 1.0, 1.0}); // this is the transposed
+
+        std::vector<double> Bnums({1.0, 1.0, 1.0,
+                                   1.0, 1.0, 1.0,
+                                   1.0, 1.0, 1.0}); // this is the transposed
+
+        rows = 3;
+        cols = 3;
+
+        ldA = rows;
+        ldB = ldA;
+        ldC = ldA;
+
+        double one  = 1.0;
+        double zero = 0.0;
+
+        for(auto i : Anums){
+            A->push_back(i);
+        } 
+
+        for(auto i : Bnums){
+            B->push_back(i);
+            C->push_back(0.0);
+        } 
+
+        la.gemm('N', 'N',
+            rows, cols, cols,
+            one, A->data(), ldA,
+            B->data(), ldB,
+            zero, C->data(), ldC);
+
+        for(auto i=0; i<C->size(); i++){
+            if(std::abs(static_cast<double>(3.0)-(*C)[i]) > 1e-08){
+                testValidity = false;
+            }
+        }
+    } catch (...) {
+        testValidity = false;
+    }
+    return testValidity;
+}
+
+
+
+bool Vector_trsm() {
+
+    mpjd::LinearAlgebra<double> la;
+    std::shared_ptr<mpjd::LinearAlgebra<double>::Vector>
+    A      = la.newVector(mpjd::LinearAlgebra<double>::target_arch::CPU);
+    int ldA;
+
+    std::shared_ptr<mpjd::LinearAlgebra<double>::Vector>
+    b      = la.newVector(mpjd::LinearAlgebra<double>::target_arch::CPU);
+    
+    std::shared_ptr<mpjd::LinearAlgebra<double>::Vector>
+    x      = la.newVector(mpjd::LinearAlgebra<double>::target_arch::CPU);
+
+    int rows,cols;
+
+    bool testValidity = true;
+    try {
+        std::vector<double> Anums({1.0, 1.0, 1.0,
+                                   0.0, 1.0, 1.0,
+                                   0.0, 0.0, 1.0}); // this is the transposed
+
+        std::vector<double> xnums({1.0, 
+                                   1.0, 
+                                   1.0});
+
+        rows = 3;
+        cols = 3;
+
+        ldA = rows;
+        
+        double one  = 1.0;
+        double zero = 0.0;
+
+        for(auto i : Anums){
+            A->push_back(i);
+        } 
+
+        for(auto i : xnums){
+            x->push_back(i);
+            b->push_back(0.0);
+        } 
+
+        la.gemm('N', 'N',
+            rows, 1, cols,
+            one, A->data(), ldA,
+            x->data(), cols,
+            zero, b->data(), cols);
+
+
+            la.trsm('C', 'L','L', 'N',
+                        'N', rows, 1,
+                        one, A->data(), ldA, 
+                        b->data() , rows);
+
+        for(auto i=0; i<b->size(); i++){
+            if(std::abs((*x)[i]-(*b)[i]) > 1e-08){
+                testValidity = false;
+            }
+        }
+    } catch (...) {
+        testValidity = false;
+    }
+    return testValidity;
+}
+
 int main(){
 
     CHECK(Vector_capacity_test);
@@ -201,61 +468,12 @@ int main(){
     CHECK(Vector_init_with_zero_vals);
     CHECK(Vector_resize_test);
     CHECK(Vector_dot);
+    CHECK(Vector_axpy);
+    CHECK(Vector_nrm2);
+    CHECK(Vector_scal);
+    CHECK(Vector_geam);
+    CHECK(Vector_gemm);
+    CHECK(Vector_trsm);
 
-    /*
-
-    std::cout << "SHARED_COUNT: " << myVectorCPU.use_count() << std::endl;
-
-    std::cout << "Capacity = " << myVectorCPU->capacity() << std::endl;
-    std::cout << "Size = " << myVectorCPU->size() << std::endl;
-    myVectorCPU->reserve(100);
-    myVectorCPU->push_back(0);
-    myVectorCPU->push_back(1);
-    myVectorCPU->push_back(2);
-    std::cout << "Capacity = " << myVectorCPU->capacity() << std::endl;
-    std::cout << "Size = " << myVectorCPU->size() << std::endl;
-    mpjd::LinearAlgebra::Vector<int>::Iterator it = myVectorCPU->begin();
-
-    std::cout << "V[1] = " << (*myVectorCPU)[1] << std::endl;
-    std::cout << "1 *(++it) = " << *(++it) << std::endl;
-
-    std::cout << "V[1] = " << (*myVectorCPU)[1] << std::endl;
-    std::cout << "2 *(--it) = " << *(--it) << std::endl;
-
-    std::cout << "V[1] = " << (*myVectorCPU)[1] << std::endl;
-    std::cout << "3 *(it) = " << *(it) << std::endl;
-    std::cout << "4 *(it++) = " << *(it++) << std::endl;
-    std::cout << "5 *(it) = " << *(it) << std::endl;
-
-    std::cout << "3 *(it) = " << *(it) << std::endl;
-    std::cout << "4 *(it--) = " << *(it--) << std::endl;
-    std::cout << "5 *(it) = " << *(it) << std::endl;
-
-
-    mpjd::LinearAlgebra::Vector<int>::Iterator it_end = myVectorCPU->end();
-    std::cout << "it == it " << (it == it) << std::endl;
-    std::cout << "it == it_end " << (it == it_end) << std::endl;
-    std::cout << "it != it " << (it != it) << std::endl;
-    std::cout << "it != it_end " << (it != it_end) << std::endl;
-    
-    //std::cout << "*(it_end) = " << *(it_end) << std::endl;
-
-    mpjd::LinearAlgebra::Vector<int>::Iterator it2;
-    it2 = it;
-
-    const int *vector_ptr = myVectorCPU->data();
-    std::cout << "*vector_ptr = " << (*vector_ptr) << std::endl;
-    
-
-    std::shared_ptr<mpjd::LinearAlgebra::Vector<int>>
-    myVectorCPU2 = myVectorCPU; 
-
-    std::cout << myVectorCPU2 << " " << myVectorCPU << std::endl;
-    myVectorCPU->clear();
-    std::cout << "Capacity = " << myVectorCPU->capacity() << std::endl;
-    std::cout << "Arch = " << myVectorCPU->getArch() << std::endl;
-
-    std::cout << "Size = " << myVectorCPU->size() << std::endl;
-*/
     return 0;
 }

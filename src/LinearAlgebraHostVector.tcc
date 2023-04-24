@@ -14,18 +14,18 @@ class mpjd::LinearAlgebra<fp>::Host_Vector
                
         Host_Vector();
         ~Host_Vector();
-        const fp* data() override {return _vector.data();};
+        fp* data() override {return _vector.data();};
 
         int size() override; 
-        void resize(int dim);
-        fp& operator[](int idx);
-        void push_back(fp var);
+        void resize(int dim) override;
+        fp& operator[](int idx) override;
+        void push_back(fp var) override;
 
-        void reserve(int numVars); 
-        int  capacity();
-        void clear();
-        const target_arch getArch() { return _vec_arch;}
-        void init(int val);
+        void reserve(int numVars) override; 
+        int  capacity() override;
+        void clear() override;
+        const target_arch getArch() override { return _vec_arch;}
+        void init(int val) override;
 
     private: 
         class IteratorImplementationConcrete 

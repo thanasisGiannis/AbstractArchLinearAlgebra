@@ -1,6 +1,6 @@
 gitHubToken
 build/*
-../example/bin/*
+example/bin/*
 *.cflags
 *.config
 *.creator

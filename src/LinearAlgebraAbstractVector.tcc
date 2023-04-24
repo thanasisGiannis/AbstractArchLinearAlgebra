@@ -30,7 +30,7 @@ class mpjd::LinearAlgebra<fp>::Vector
         virtual int size() = 0;
         virtual ~Vector() = default;
         
-        virtual const fp* data() = 0;
+        virtual fp* data() = 0;
         virtual fp& operator[](int idx) = 0;
         virtual void reserve(int numVars) = 0; 
         virtual void resize(int dim) = 0; 

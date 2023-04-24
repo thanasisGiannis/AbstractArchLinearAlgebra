@@ -24,36 +24,33 @@ namespace mpjd {
             std::unique_ptr<Vector> 
                 newVector(target_arch arch);
 
-/*
             void gemm(const char transa, const char  transb,
             const  int m, const int n, const int k, 
-            const double alpha, const double* a, const int lda,
-            const double* b, const int ldb,
-            const double beta, double* c, const int ldc); 
-*/
+            const fp alpha, const fp* a, const int lda,
+            const fp* b, const int ldb,
+            const fp beta, fp* c, const int ldc); 
+
             fp dot(const int dim, const fp *x, const int incx,
                 const fp *y, const int incy) ;
-/*
-            void axpy(const int dim, const double alpha, 
-                const double *x, const int incx, double *y, const int incy);
-            double nrm2(const int dim, const double *x, const int incx);
-            void scal(const int dim, const double alpha, 
-                double *x, const int incx);
+            void axpy(const int dim, const fp alpha, 
+                const fp *x, const int incx, fp *y, const int incy);
+            fp nrm2(const int dim, const fp *x, const int incx);
+            void scal(const int dim, const fp alpha, 
+                fp *x, const int incx);
 
             void geam(const char transa, const char transb,
                     int m, int n,
-                    const double alpha, const double *A, int lda,
-                    const double beta, const double *B, int ldb,
-                    double *C, int ldc);
+                    const fp alpha, const fp *A, int lda,
+                    const fp beta, const fp *B, int ldb,
+                    fp *C, int ldc);
             
             void trsm(const char Layout, const char side,
                                     const char uplo, const char transa,
                                     const char diag, 
                                     const int dim, const int nrhs,
-                                    const double alpha, 
-                                    const double *A, const int ldA, 
-                                    double *B , const int ldB);
-*/                                    
+                                    const fp alpha, 
+                                    const fp *A, const int ldA, 
+                                    fp *B , const int ldB);
         private:
             class Host_Vector;
 

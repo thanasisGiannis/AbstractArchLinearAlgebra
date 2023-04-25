@@ -17,9 +17,9 @@ mpjd::LinearAlgebra<fp>::~LinearAlgebra() {
 
 template<class fp>
 std::unique_ptr<typename mpjd::LinearAlgebra<fp>::Vector>
-mpjd::LinearAlgebra<fp>::newVector(const mpjd::LinearAlgebra<fp>::target_arch arch){
+mpjd::LinearAlgebra<fp>::newVector(){
     std::unique_ptr<Vector> p;
-    switch(arch){
+    switch(_arch){
         case target_arch::CPU:
             p = std::unique_ptr<Host_Vector>(new Host_Vector());
             break;

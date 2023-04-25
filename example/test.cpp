@@ -27,7 +27,7 @@ bool Vector_capacity_test() {
 
     mpjd::LinearAlgebra<int> la;
     mpjdVector
-    vec      = la.newVector(mpjd::LinearAlgebra<int>::target_arch::CPU);
+    vec      = la.newVector();
     
     bool testValidity = true;
     try {
@@ -46,7 +46,7 @@ bool Vector_size_test() {
 
     mpjd::LinearAlgebra<int> la;
     mpjdVector
-    vec      = la.newVector(mpjd::LinearAlgebra<int>::target_arch::CPU);
+    vec      = la.newVector();
 
     bool testValidity = true;
     try {
@@ -67,7 +67,7 @@ bool Vector_iterator_test() {
 
     mpjd::LinearAlgebra<int> la;
     mpjdVector
-    vec      = la.newVector(mpjd::LinearAlgebra<int>::target_arch::CPU);
+    vec      = la.newVector();
 
     bool testValidity = true;
     try {
@@ -110,7 +110,7 @@ bool Vector_resize_test() {
     
     mpjd::LinearAlgebra<int> la;
     mpjdVector
-    vec      = la.newVector(mpjd::LinearAlgebra<int>::target_arch::CPU);
+    vec      = la.newVector();
 
     bool testValidity = true;
     try {
@@ -145,7 +145,7 @@ bool Vector_init_with_zero_vals() {
 
     mpjd::LinearAlgebra<int> la;
     mpjdVector
-    vec      = la.newVector(mpjd::LinearAlgebra<int>::target_arch::CPU);
+    vec      = la.newVector();
 
     bool testValidity = true;
     try {
@@ -170,10 +170,10 @@ bool Vector_dot() {
 
     mpjd::LinearAlgebra<double> la;
     std::shared_ptr<mpjd::LinearAlgebra<double>::Vector>
-    x      = la.newVector(mpjd::LinearAlgebra<double>::target_arch::CPU);
+    x      = la.newVector();
 
     std::shared_ptr<mpjd::LinearAlgebra<double>::Vector>
-    y      = la.newVector(mpjd::LinearAlgebra<double>::target_arch::CPU);
+    y      = la.newVector();
 
     bool testValidity = true;
     try {
@@ -197,10 +197,10 @@ bool Vector_axpy() {
 
     mpjd::LinearAlgebra<double> la;
     std::shared_ptr<mpjd::LinearAlgebra<double>::Vector>
-    x      = la.newVector(mpjd::LinearAlgebra<double>::target_arch::CPU);
+    x      = la.newVector();
 
     std::shared_ptr<mpjd::LinearAlgebra<double>::Vector>
-    y      = la.newVector(mpjd::LinearAlgebra<double>::target_arch::CPU);
+    y      = la.newVector();
 
     bool testValidity = true;
     try {
@@ -227,7 +227,7 @@ bool Vector_nrm2() {
 
     mpjd::LinearAlgebra<double> la;
     std::shared_ptr<mpjd::LinearAlgebra<double>::Vector>
-    x      = la.newVector(mpjd::LinearAlgebra<double>::target_arch::CPU);
+    x      = la.newVector();
 
     bool testValidity = true;
     try {
@@ -251,7 +251,7 @@ bool Vector_scal() {
 
     mpjd::LinearAlgebra<double> la;
     std::shared_ptr<mpjd::LinearAlgebra<double>::Vector>
-    x      = la.newVector(mpjd::LinearAlgebra<double>::target_arch::CPU);
+    x      = la.newVector();
 
     bool testValidity = true;
     try {
@@ -278,15 +278,15 @@ bool Vector_geam() {
 
     mpjd::LinearAlgebra<double> la;
     std::shared_ptr<mpjd::LinearAlgebra<double>::Vector>
-    A      = la.newVector(mpjd::LinearAlgebra<double>::target_arch::CPU);
+    A      = la.newVector();
     int ldA;
 
     std::shared_ptr<mpjd::LinearAlgebra<double>::Vector>
-    B      = la.newVector(mpjd::LinearAlgebra<double>::target_arch::CPU);
+    B      = la.newVector();
     int ldB;
     
     std::shared_ptr<mpjd::LinearAlgebra<double>::Vector>
-    C      = la.newVector(mpjd::LinearAlgebra<double>::target_arch::CPU);
+    C      = la.newVector();
     int ldC;
     
 
@@ -333,15 +333,15 @@ bool Vector_gemm() {
 
     mpjd::LinearAlgebra<double> la;
     std::shared_ptr<mpjd::LinearAlgebra<double>::Vector>
-    A      = la.newVector(mpjd::LinearAlgebra<double>::target_arch::CPU);
+    A      = la.newVector();
     int ldA;
 
     std::shared_ptr<mpjd::LinearAlgebra<double>::Vector>
-    B      = la.newVector(mpjd::LinearAlgebra<double>::target_arch::CPU);
+    B      = la.newVector();
     int ldB;
     
     std::shared_ptr<mpjd::LinearAlgebra<double>::Vector>
-    C      = la.newVector(mpjd::LinearAlgebra<double>::target_arch::CPU);
+    C      = la.newVector();
     int ldC;
     
 
@@ -399,14 +399,14 @@ bool Vector_trsm() {
 
     mpjd::LinearAlgebra<double> la;
     std::shared_ptr<mpjd::LinearAlgebra<double>::Vector>
-    A      = la.newVector(mpjd::LinearAlgebra<double>::target_arch::CPU);
+    A      = la.newVector();
     int ldA;
 
     std::shared_ptr<mpjd::LinearAlgebra<double>::Vector>
-    b      = la.newVector(mpjd::LinearAlgebra<double>::target_arch::CPU);
+    b      = la.newVector();
     
     std::shared_ptr<mpjd::LinearAlgebra<double>::Vector>
-    x      = la.newVector(mpjd::LinearAlgebra<double>::target_arch::CPU);
+    x      = la.newVector();
 
     int rows,cols;
 

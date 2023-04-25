@@ -22,7 +22,7 @@ namespace mpjd {
             class Vector;
             
             std::unique_ptr<Vector> 
-                newVector(target_arch arch);
+                newVector();
 
             void gemm(const char transa, const char  transb,
             const  int m, const int n, const int k, 
@@ -57,6 +57,12 @@ namespace mpjd {
             class Device_Vector;
 
             target_arch _arch;
+
+            // abstract class that should have the interface for blas operations
+            // implementations of this should use polymorphism and eventually
+            // use wrappers around the calling external BLAS functions
+            // class Operations; this will be the true blas wrappers depenting on cpu or gpu processing unit
+            // Operations *op; // object to be used to delegate to proper BLAS operations
 
     };
 }

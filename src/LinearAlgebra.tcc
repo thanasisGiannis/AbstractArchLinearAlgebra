@@ -1,10 +1,21 @@
+#include "HostLinearAlgebraOperations.tcc"
 
 #include <memory>
 
 template <class fp>
 mpjd::LinearAlgebra<fp>::LinearAlgebra(target_arch arch)
-    : _arch{arch}
-    {}
+: _arch{arch}
+{
+    _op = NULL; //std::unique_ptr<mpjd::HostOperations<fp>>(new mpjd::HostOperations<fp>());
+}
+
+template <>
+mpjd::LinearAlgebra<double>::LinearAlgebra(target_arch arch)
+: _arch{arch}
+{
+    _op = std::unique_ptr<mpjd::HostOperations<double>>(new mpjd::HostOperations<double>());
+}
+
 
 template <class fp>
 mpjd::LinearAlgebra<fp>::~LinearAlgebra() {
